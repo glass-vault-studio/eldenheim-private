@@ -13,13 +13,17 @@
 
   NEVER share this repo, the release or the exe: they contain Elden Ring data.
 
+.PARAMETER NoStart
+  Download and check only; do not start the installer.
+
 .PARAMETER Dir
   Where the exe is saved (default: Downloads\Eldenheim, or the fixed drive with the most free space if that drive is
   short of the ~3.5 GB needed). The exe is kept there: run it again later for Maintenance (repair, uninstall).
 #>
 param(
     [string]$Dir = "",
-    [string]$Repo = "glass-vault-studio/eldenheim-private"
+    [string]$Repo = "glass-vault-studio/eldenheim-private",
+    [switch]$NoStart
 )
 
 $ErrorActionPreference = "Stop"
@@ -135,5 +139,6 @@ if ($have) {
     Write-Host "Downloaded and checked: $exe"
 }
 
+if ($NoStart) { Write-Host "Not starting it (-NoStart)."; return }
 Write-Host "Starting the installer: check the Valheim folder, tick the box, click Install."
 Start-Process $exe
